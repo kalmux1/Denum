@@ -22,7 +22,7 @@ show_banner() {
 
 # Function to display help message
 show_help() {
-  echo -e "${BRIGHT_GREEN}Usage:${NC} denum.sh -i <domain_list_file> -o <output_file>"
+  echo -e "${BRIGHT_GREEN}Usage:${NC} ./denum.sh -i <domain_list_file> -o <output_file>"
   echo " "
   echo -e "Description : This tool takes a file containing domain names and retrieves subdomains from crt.sh."
   echo " "
@@ -32,14 +32,14 @@ show_help() {
   echo -e "  -h          Show this help message."
   echo " "
   echo -e "${BRIGHT_GREEN}Example:${NC}"
-  echo -e "  denum.sh -i domains.txt -o subdomains.txt"
+  echo -e "  ./denum.sh -i domains.txt -o subdomains.txt"
 }
 
 # Function to clean domain names
 clean_domain() {
   local domain="$1"
   # Remove scheme (http://, https://, etc.) and any trailing slashes or paths
-  echo "$domain" | sed -E 's|https?://||' | sed -E 's|/.*||'
+  echo "$domain" | sed -e 's/^https\?:\/\///' -e 's/^www\.//' -e 's/\/.*$//'
 }
 
 # Show banner
